@@ -41,7 +41,9 @@ func (c *Config) LoadFromEnv() {
 				case reflect.String:
 					field.SetString(envVal)
 				case reflect.Bool:
-					field.SetBool(true)
+					if newBool, err := strconv.ParseBool(envVal); err == nil {
+						field.SetBool(newBool)
+					}
 				case reflect.Slice:
 					field.SetBytes([]byte(envVal))
 				case reflect.Int:
